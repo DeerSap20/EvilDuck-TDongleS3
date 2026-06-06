@@ -1,29 +1,40 @@
 <div align="center">
 
-  <img src="https://user-images.githubusercontent.com/62047147/195847997-97553030-3b79-4643-9f2c-1f04bba6b989.png" alt="logo" width="100" height="auto" />
-  
-  <h1> EvilDuck </h1>
-  <p> Open source USB rubber ducky, from Arduino Micro to ESP32-S3 </p>
+  <img src="https://github.com/user-attachments/assets/a4dc6511-577b-4050-874c-d8b678992117" alt="EvilDuck Banner" width="100%"/>
 
+  <br/>
+  <br/>
 
-<!-- Badges -->
-<a href="https://github.com/cifertech/evilduck" title="Go to GitHub repo"><img src="https://img.shields.io/static/v1?label=cifertech&message=evilduck&color=purple&logo=github" alt="cifertech - evilduck"></a>
-<a href="https://github.com/cifertech/evilduck"><img src="https://img.shields.io/github/stars/cifertech/evilduck?style=social" alt="stars - evilduck"></a>
-<a href="https://github.com/cifertech/evilduck"><img src="https://img.shields.io/github/forks/cifertech/evilduck?style=social" alt="forks - evilduck"></a>
+  <!-- Badges -->
+  <a href="https://github.com/cifertech/evilduck">
+    <img src="https://img.shields.io/static/v1?label=cifertech&message=evilduck&color=orange&logo=github" alt="cifertech - EvilDuck"/>
+  </a>
+  &nbsp;
+  <a href="https://github.com/cifertech/evilduck">
+    <img src="https://img.shields.io/github/stars/cifertech/evilduck?style=social" alt="Stars"/>
+  </a>
+  &nbsp;
+  <a href="https://github.com/cifertech/evilduck">
+    <img src="https://img.shields.io/github/forks/cifertech/evilduck?style=social" alt="Forks"/>
+  </a>
+  &nbsp;
+  <img src="https://img.shields.io/badge/ESP32--S3-WiFi%20%2B%20USB%20HID-orange?logo=espressif" alt="ESP32-S3"/>
+  &nbsp;
+  <img src="https://img.shields.io/badge/license-MIT-orange" alt="MIT License"/>
 
-   
-<h4>
-    <a href="https://twitter.com/techcifer">TWITTER</a>
-  <span> · </span>
-    <a href="https://www.instagram.com/cifertech/">INSTAGRAM</a>
-  <span> · </span>
-    <a href="https://www.youtube.com/@techcifer">YOUTUBE</a>
-  <span> · </span>
-    <a href="https://cifertech.net/">WEBSITE</a>
-  </h4>
+  <br/>
+  <br/>
+
+  <p>
+  <a href="https://twitter.com/techcifer"><img src="https://img.shields.io/badge/Twitter-orange?logo=x&logoColor=black"/></a>
+  <a href="https://www.instagram.com/cifertech/"><img src="https://img.shields.io/badge/Instagram-orange?logo=instagram&logoColor=black"/></a>
+  <a href="https://www.youtube.com/@techcifer"><img src="https://img.shields.io/badge/YouTube-orange?logo=youtube&logoColor=black"/></a>
+  <a href="https://cifertech.net/"><img src="https://img.shields.io/badge/Website-orange?logo=googlechrome&logoColor=black"/></a>
+</p>
+
 </div>
 
-<br />
+<br/>
 
 
 
