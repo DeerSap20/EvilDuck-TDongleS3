@@ -37,6 +37,10 @@ This repo covers **two generations** of the design:
 |---|---|---|---|---|
 | **EvilDuck SD** | Arduino Micro (ATmega32U4) | ❌ | ✅ | ❌ |
 | **EvilDuck S3** | ESP32-S3 | ✅ | ✅ | ✅ |
+
+
+<img width="1919" height="1080" alt="IMG_0537" src="https://github.com/user-attachments/assets/286fb130-bead-4b07-821e-4ae5140b8cf4" />
+
  
 ---
  
