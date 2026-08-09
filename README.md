@@ -121,13 +121,5 @@ All core firmware logic (web UI, DuckScript interpreter, HID backend, storage) i
 ## License
 
 MIT — see [LICENSE](LICENSE), inherited from the upstream project.
- 
-## 🤝 Contact
- 
-▶ Support me on Patreon: [patreon.com/cifertech](https://www.patreon.com/cifertech)
- 
-CiferTech — [@twitter](https://twitter.com/techcifer) — CiferTech@gmail.com
- 
-Project Link: [https://github.com/cifertech/EvilDuck](https://github.com/cifertech/EvilDuck)
 
 
