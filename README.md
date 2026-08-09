@@ -38,131 +38,75 @@
 
 
 
-## 📖 About the Project
- 
-EvilDuck is a custom USB rubber ducky — a device that plugs into any computer and acts as a keyboard, executing pre-written payloads automatically. It's inspired by [WiFiDuck](https://github.com/spacehuhntech/WiFiDuck) by Spacehuhn, which pairs an ESP8266 for WiFi with an ATmega32U4 for USB HID. EvilDuck takes that concept and builds on it with each hardware revision.
- 
-This repo covers **two generations** of the design:
- 
-| Version | Chip(s) | WiFi | SD Card | Web Interface |
-|---|---|---|---|---|
-| **EvilDuck SD** | Arduino Micro (ATmega32U4) | ❌ | ✅ | ❌ |
-| **EvilDuck S3** | ESP32-S3 | ✅ | ✅ | ✅ |
+# EvilDuck S3 — LilyGO T-Dongle-S3 Port
 
+This is a fork of [cifertech/EvilDuck](https://github.com/cifertech/EvilDuck), adapted to run on the **LilyGO T-Dongle-S3** — a USB-A dongle-form-factor ESP32-S3 board with a built-in 0.96" ST7735 display and APA102 RGB LED.
 
-<img width="1919" height="1080" alt="IMG_0537" src="https://github.com/user-attachments/assets/286fb130-bead-4b07-821e-4ae5140b8cf4" />
+The original EvilDuckS3 firmware was written for CiferTech's custom PCB. This fork swaps out the display and LED drivers to match the T-Dongle-S3's actual hardware, and fixes a Windows-only build bug.
 
- 
----
- 
-## 🦆 EvilDuck SD
- 
-The original version. Simple, standalone, and effective. Scripts are stored on an SD card and executed automatically when the device is powered. No WiFi, no web interface — just plug in, run.
- 
-### Features
- 
-- **Keystroke Injection** via Arduino Micro acting as a USB HID keyboard
-- **SD Card Payload Storage** — scripts stored as `script.txt` on FAT16/32
-- **Hot-Swap Detection** — detects SD card insertion while powered
-- **LED Status Indicators**:
-  - Blinks every 1s → no SD card detected
-  - Blinks every 2s → no script file found
-  - Blinks on each keystroke during execution
-- **Rubber Ducky-style scripting** — supports `STRING`, `DELAY`, and special keypresses
-### Hardware
- 
-| Component | Detail |
+## What's different from upstream
+
+| Component | Original (CiferTech PCB) | This fork (T-Dongle-S3) |
+|---|---|---|
+| Display | None | ST7735 SPI, 80x160 — shows WiFi AP name, IP, uptime, free storage, battery |
+| Status LED | WS2812/NeoPixel (single-wire) | APA102/DotStar (clock+data) |
+| `spiffs.h`/`spiffs.cpp` | — | Renamed to `fs_spiffs.h`/`fs_spiffs.cpp` to avoid a Windows case-insensitive filename collision with the ESP32 core's own `SPIFFS.h` |
+
+## Hardware — LilyGO T-Dongle-S3 confirmed pinout
+
+| Function | GPIO |
 |---|---|
-| Microcontroller | Arduino Micro (ATmega32U4) |
-| Storage | MicroSD card (FAT16/32) |
-| Status LED | Connected to Pin 9 |
-| SD Card Module | SPI interface |
- 
-### Wiring
- 
-| SD Card Pin | Arduino Pin |
-|---|---|
-| CS | 4 |
-| MOSI | 11 |
-| MISO | 12 |
-| SCK | 13 |
- 
-LED: Anode → Pin 9, Cathode → GND
- 
-### Software Requirements
- 
-- Arduino IDE 1.8+
-- Libraries: `SD`, `SPI`, `Keyboard`
----
- 
-## 🦆 EvilDuck S3
- 
-The second generation. Built around the **ESP32-S3**, which handles both USB HID and WiFi natively on a single chip — no second microcontroller needed. The result is a more compact, more capable, fully self-contained device.
- 
-It adds a browser-based control panel over WiFi, SD card support for expanded storage, an addressable RGB LED, and a full DuckScript interpreter — all while staying the same physical size.
- 
-### What's New
- 
-- **Single-chip design** — ESP32-S3 replaces the ATmega32U4 + ESP8266 combo
-- **WiFi access point** — browser-based control panel, no app required
-- **Addressable RGB LED** — WS2812 (2020 package), fully color-controllable in software
-- **SD card support** with expanded storage and USB mass storage mode
-- **Over-the-air firmware updates** via the web interface
-- **DuckScript interpreter** — executes scripts line by line as USB HID keystrokes
-- **Autorun** — plug in and a chosen script starts automatically
-- **Stealth mode** — adjusts timing and LED behavior
-### Hardware
- 
-| Component | Detail |
-|---|---|
-| Microcontroller | ESP32-S3 |
-| WiFi | Built-in (802.11 b/g/n) |
-| USB | Native USB HID (no second MCU) |
-| Storage | Internal SPIFFS + MicroSD |
-| RGB LED | WS2812 (2020 package) |
-| Voltage Regulator | LM1117 (5V → 3.3V) |
-| Connector | USB Type-A |
- 
-### Web Interface Features
- 
-Accessible over WiFi once the device is powered:
- 
-- Upload, edit, save, and delete scripts
-- Trigger payloads remotely
-- Live execution status (current script + line number)
-- Execution log with warnings and errors
-- Stop a running script mid-execution
-- Send individual commands for quick testing
-- Built-in script library (Windows, Linux, macOS, demos, advanced)
-- Password-protected with optional hidden SSID
-- Configurable network name, password, and channel
-### Storage Modes
- 
-- **Internal flash** (SPIFFS) — persistent across reboots
-- **SD card** — expanded storage, file transfer between internal and SD
-- **USB mass storage mode** — drag and drop files directly
-### Device Modes
- 
-| Mode | Description |
-|---|---|
-| Keyboard only | Acts purely as HID keyboard |
-| Storage only | Acts as USB mass storage |
-| Combined | Both keyboard and storage |
-| Disabled | Neither |
- 
----
- 
-## 🔌 Schematics
- 
-Full schematics for both versions are available in the `/Schematic` folder, and detailed build guides can be found on the [project website](https://cifertech.net/).
- 
----
- 
-## 📄 License
- 
-Distributed under the MIT License. See `LICENSE` for details.
- 
----
+| Display CS | 4 |
+| Display MOSI | 3 |
+| Display CLK | 5 |
+| Display DC | 2 |
+| Display RESET | 1 |
+| Display Backlight | 38 (active LOW) |
+| LED Data (APA102) | 40 |
+| LED Clock (APA102) | 39 |
+| Button | 0 |
+
+**Note on the microSD/TF slot:** LilyGO's own listing states the built-in "virtual TF card" has no actual memory/function on this board. If you need SD storage, use an SD-equipped variant or fall back to internal flash (SPIFFS) storage mode, which this firmware supports.
+
+## Requirements
+
+- [Arduino IDE 2.x](https://www.arduino.cc/en/software)
+- ESP32 board package (Boards Manager URL: `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`)
+- Board profile: **ESP32S3 Dev Module**
+- **USB CDC On Boot: Enabled** (Tools menu) — required for native USB on this board
+
+### Libraries (install via Library Manager unless noted)
+
+- **GFX Library for Arduino** (by moononournation) — drives the ST7735 display
+- **Adafruit DotStar** — drives the APA102 LED
+- **ESP Async WebServer** (ESP32Async fork — search "ESP Async WebServer", or manually install from [github.com/ESP32Async/ESPAsyncWebServer](https://github.com/ESP32Async/ESPAsyncWebServer))
+- **AsyncTCP** (same ESP32Async org — [github.com/ESP32Async/AsyncTCP](https://github.com/ESP32Async/AsyncTCP)) — must match the ESPAsyncWebServer source to avoid version-mismatch compile errors
+
+> Install ESPAsyncWebServer and AsyncTCP from the **same** source/maintainer. Mixing forks (e.g. an old ESPAsyncWebServer with a newer AsyncTCP) causes `const`-qualifier compile errors.
+
+## Flashing
+
+1. Open `EvilDuckS3/EvilDuckS3.ino` in Arduino IDE.
+2. Select **Tools → Board → ESP32S3 Dev Module**.
+3. Select **Tools → USB CDC On Boot → Enabled**.
+4. Plug in the T-Dongle-S3. If it doesn't appear under **Tools → Port**, hold the board's button while plugging in to force download mode, then release after ~2 seconds.
+5. Click **Upload**.
+
+On first boot you'll see a brief boot logo, then the status screen (WiFi AP name, IP address, uptime, free storage, battery voltage if wired).
+
+## Troubleshooting
+
+- **Blank screen after flashing:** double-check the SPI pins in `display.cpp` match the table above, and confirm the GFX library installed correctly.
+- **Board flickers in/out of the port list:** this happened during development whenever a firmware build crashed early in `setup()` (e.g. a display init hang) — the board reboots in a loop, dropping USB each time. Forcing download mode via the button and reflashing known-good code resolves it.
+- **`SPIFFS`/`File` "not declared in this scope" (Windows only):** make sure you're using this fork's `fs_spiffs.h`/`fs_spiffs.cpp`, not the upstream `spiffs.h`/`spiffs.cpp` — the rename avoids a case-insensitive filename collision with the ESP32 core's real `SPIFFS.h` library.
+
+## Credits
+
+All core firmware logic (web UI, DuckScript interpreter, HID backend, storage) is from the original [cifertech/EvilDuck](https://github.com/cifertech/EvilDuck) project. This fork only adapts the hardware layer for the T-Dongle-S3.
+
+## License
+
+MIT — see [LICENSE](LICENSE), inherited from the upstream project.
  
 ## 🤝 Contact
  
