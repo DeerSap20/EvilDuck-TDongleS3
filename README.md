@@ -40,7 +40,7 @@
 
 # EvilDuck S3 — LilyGO T-Dongle-S3 Port
 
-This is a fork of [cifertech/EvilDuck](https://github.com/cifertech/EvilDuck), adapted to run on the **LilyGO T-Dongle-S3** — a USB-A dongle-form-factor ESP32-S3 board with a built-in 0.96" ST7735 display and APA102 RGB LED.
+This is a fork of [cifertech/EvilDuck](https://github.com/cifertech/EvilDuck), adapted to run on the [**LilyGO T-Dongle-S3**](https://lilygo.cc/en-us/products/t-dongle-s3) — a USB-A dongle-form-factor ESP32-S3 board with a built-in 0.96" ST7735 display and APA102 RGB LED.
 
 The original EvilDuckS3 firmware was written for CiferTech's custom PCB. This fork swaps out the display and LED drivers to match the T-Dongle-S3's actual hardware, and fixes a Windows-only build bug.
 
@@ -93,6 +93,20 @@ The original EvilDuckS3 firmware was written for CiferTech's custom PCB. This fo
 5. Click **Upload**.
 
 On first boot you'll see a brief boot logo, then the status screen (WiFi AP name, IP address, uptime, free storage, battery voltage if wired).
+
+## Display
+
+The built-in 0.96" screen shows a live status readout, refreshed once per second:
+
+| Line | Shows |
+|---|---|
+| 1 | WiFi AP name (SSID) — the network name to connect to for the web control panel |
+| 2 | IP address of the device's own access point (typically `192.168.4.1`) |
+| 3 | Uptime since last boot (`HH:MM:SS`) |
+| 4 | Free internal storage (SPIFFS), in KB |
+| 5 | Battery voltage, if a battery ADC pin is wired (`N/A` otherwise) |
+
+On power-up, it briefly shows a boot logo before switching to the status screen. This is purely informational — the display doesn't show anything about scripts or execution state, and there's no on-screen menu or selection UI.
 
 ## Troubleshooting
 
