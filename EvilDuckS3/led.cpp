@@ -3,7 +3,37 @@
 
 #if LED_ENABLED
 
-#if LED_TYPE_NEOPIXEL
+#if LED_TYPE_APA102
+#include <Adafruit_DotStar.h>
+#ifndef LED_USE_GAMMA
+#define LED_USE_GAMMA 0
+#endif
+static Adafruit_DotStar pixel(LED_NUM_PIXELS, LED_APA102_DATA_PIN, LED_APA102_CLOCK_PIN, DOTSTAR_BRG);
+
+static uint8_t corrected(uint8_t value, uint8_t scale) {
+  uint16_t v = (static_cast<uint16_t>(value) * scale) / 255;
+  return static_cast<uint8_t>(v);
+}
+
+namespace led {
+void begin() {
+  pixel.begin();
+  pixel.setBrightness(LED_BRIGHTNESS);
+  pixel.show();
+}
+void setColor(int r, int g, int b) {
+  uint8_t rr = corrected(constrain(r, 0, 255), LED_CORRECT_R);
+  uint8_t gg = corrected(constrain(g, 0, 255), LED_CORRECT_G);
+  uint8_t bb = corrected(constrain(b, 0, 255), LED_CORRECT_B);
+  for (uint8_t i = 0; i < LED_NUM_PIXELS; ++i) {
+    pixel.setPixelColor(i, pixel.Color(rr, gg, bb));
+  }
+  pixel.show();
+}
+bool enabled() { return true; }
+}
+
+#elif LED_TYPE_NEOPIXEL
 #include <Adafruit_NeoPixel.h>
 #ifndef LED_NEOPIXEL_ORDER
 #define LED_NEOPIXEL_ORDER NEO_GRB

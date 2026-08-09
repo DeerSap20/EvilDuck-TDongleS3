@@ -14,6 +14,7 @@
 #include "led.h"
 #include "attackmode.h"
 #include "script_library.h"
+#include "display.h"
 
 static void applyIdleLedColor() {
   if (settings::getDisableLed()) {
@@ -34,6 +35,9 @@ void setup() {
   led::setColor(0, 40, 0);
   delay(120);
   led::setColor(0, 0, 40);
+
+  display::begin();
+
   hid_backend::begin();
   keyboard_locale::begin();
   attackmode::begin();
@@ -62,5 +66,7 @@ void loop() {
   duckscript::update();
   com::update();
   cli::update();
+  display::update();
   delay(1);
 }
+

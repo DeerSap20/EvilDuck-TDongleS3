@@ -12,16 +12,16 @@
 #define DUCKSCRIPT_MAX_LINE_LEN 512
 #define DEBUG_SERIAL_BAUD 115200
 
-// ===== Status LED (WS2812 / NeoPixel) =====
-// Custom EvilDuckS3 PCB routes the NeoPixel data line to GPIO1.
+// ===== Status LED =====
+// LilyGO T-Dongle-S3 uses an APA102 (clock+data, not single-wire WS2812).
+// Confirmed pins from LilyGO docs: data=GPIO40, clock=GPIO39.
 #define LED_ENABLED 1
-#define LED_TYPE_NEOPIXEL 1
-#define LED_PIN 1
+#define LED_TYPE_NEOPIXEL 0
+#define LED_TYPE_APA102 1
+#define LED_APA102_DATA_PIN 40
+#define LED_APA102_CLOCK_PIN 39
 #define LED_NUM_PIXELS 1
 #define LED_BRIGHTNESS 40
-// WS2812-2020 packages commonly use RGB order. If pure colors are swapped,
-// test NEO_GRB, NEO_RGB, NEO_BRG, NEO_BGR, NEO_RBG, or NEO_GBR.
-#define LED_NEOPIXEL_ORDER NEO_GRB
 // Per-channel correction, 0-255.
 #define LED_CORRECT_R 255
 #define LED_CORRECT_G 255
