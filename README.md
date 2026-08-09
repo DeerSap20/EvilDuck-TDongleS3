@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="https://github.com/user-attachments/assets/a4dc6511-577b-4050-874c-d8b678992117" alt="EvilDuck Banner" width="100%"/>
+  <img src="https://raw.githubusercontent.com/DeerSap20/EvilDuck-TDongleS3/refs/heads/main/banner.svg" alt="EvilDuck Banner" width="100%"/>
 
   <br/>
   <br/>
